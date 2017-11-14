@@ -13,6 +13,7 @@
     },
     "require": {
         "slim/slim": "^3.9",
-        "doctrine/orm": "^2.5"
+        "doctrine/orm": "^2.5",
+        "slim/middleware": "^1.0"
     }
 }

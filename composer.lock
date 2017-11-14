@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b732413b3c5ebc12ca112c02affd915",
-    "content-hash": "baf54ac3964384e9e17a3ceca191ec6e",
+    "hash": "b9e0d2ec8e1abdb928d6e602bfff1c59",
+    "content-hash": "3114626cc2d9ec4e6b201bb24823a885",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -876,6 +876,49 @@
                 "psr-3"
             ],
             "time": "2016-10-10 12:19:37"
+        },
+        {
+            "name": "slim/middleware",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/slimphp/Slim-Middleware.git",
+                "reference": "1190251a89a3044eda9d16dcb456dc92dba2d0c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/slimphp/Slim-Middleware/zipball/1190251a89a3044eda9d16dcb456dc92dba2d0c8",
+                "reference": "1190251a89a3044eda9d16dcb456dc92dba2d0c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "slim/slim": ">=2.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Slim": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "http://www.joshlockhart.com/"
+                }
+            ],
+            "description": "Slim Framework middleware",
+            "homepage": "http://github.com/codeguy/Slim",
+            "keywords": [
+                "middleware",
+                "slim"
+            ],
+            "time": "2013-09-18 18:13:40"
         },
         {
             "name": "slim/slim",

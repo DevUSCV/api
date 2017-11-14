@@ -10,15 +10,16 @@ use JsonSerializable;
  * @Entity
  * @Table(name="user")
  */
-class User  implements JsonSerializable{
-     /**
+class User implements JsonSerializable {
+
+    /**
      * @var integer
      *
      * @Id
-     * @Column(name="id", type="integer")
+     * @Column(name="user_id", type="integer")
      * @GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected $user_id;
 
     /**
      * @var string
@@ -30,40 +31,107 @@ class User  implements JsonSerializable{
      * @var string
      * @Column(type="string", length=255)
      */
-    protected $email;
+    protected $lastname;
+
+    /**
+     * @OneToOne(targetEntity="Address")
+     * @JoinColumn(name="address_id", referencedColumnName="address_id")
+     */
+    private $address;
+
+    /** @Column(type="datetime", name="birth_date") */
+    protected $birth_date;
+
+    /**
+     * @OneToOne(targetEntity="License")
+     * @JoinColumn(name="license_id", referencedColumnName="license_id")
+     */
+    private $license;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    protected $phone;
     
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    protected $email;
+
     /**
      * @var string
      * @Column(type="string", length=255)
      */
     protected $password;
 
-    function getId() {
-        return $this->id;
+    function getUser_id() {
+        return $this->user_id;
     }
 
     function getFirstname() {
         return $this->firstname;
     }
 
+    function getLastname() {
+        return $this->lastname;
+    }
+
+    function getAddress() {
+        return $this->address;
+    }
+
+    function getBirth_date() {
+        return $this->birth_date;
+    }
+
+    function getLicense() {
+        return $this->license;
+    }
+
+    function getPhonel() {
+        return $this->phone;
+    }
+    
     function getEmail() {
         return $this->email;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function getPassword() {
+        return $this->password;
+    }
+
+    function setUser_id($user_id) {
+        $this->user_id = $user_id;
     }
 
     function setFirstname($firstname) {
         $this->firstname = $firstname;
     }
 
-    function setEmail($email) {
-        $this->email = $email;
+    function setLastname($lastname) {
+        $this->lastname = $lastname;
+    }
+
+    function setAddress($address) {
+        $this->address = $address;
+    }
+
+    function setBirth_date($birth_date) {
+        $this->birth_date = $birth_date;
+    }
+
+    function setLicense($license) {
+        $this->license = $license;
+    }
+
+    function setPhone($phone) {
+        $this->phone = $phone;
     }
     
-    function getPassword() {
-        return $this->password;
+    function setEmail($email) {
+        $this->email = $email;
     }
 
     function setPassword($password) {
@@ -71,12 +139,17 @@ class User  implements JsonSerializable{
     }
 
     
-    public function jsonSerialize()
-    {
+    public function jsonSerialize() {
         return array(
-            'id' => $this->id,
+            'user_id' => $this->user_id,
             'firstname' => $this->firstname,
-            'email'=> $this->email,
+            'lastname' => $this->lastname,
+            'birth_date' => $this->birth_date,
+            'address' => $this->address,
+            'license' => $this->license,
+            'phone' => $this->phone,
+            'email' => $this->email,
         );
     }
+
 }
