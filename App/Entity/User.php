@@ -41,6 +41,9 @@ class User implements JsonSerializable {
 
     /** @Column(type="datetime", name="birth_date") */
     protected $birth_date;
+    
+    /** @Column(type="datetime", name="subscribe_date") */
+    protected $subscribe_date;
 
     /**
      * @OneToOne(targetEntity="License")
@@ -65,6 +68,12 @@ class User implements JsonSerializable {
      * @Column(type="string", length=255)
      */
     protected $password;
+    
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    protected $status;
 
     function getUser_id() {
         return $this->user_id;
@@ -137,7 +146,24 @@ class User implements JsonSerializable {
     function setPassword($password) {
         $this->password = $password;
     }
+    
+    function getSubscribe_date_date() {
+        return $this->subscribe_date_date;
+    }
 
+    function getStatus() {
+        return $this->status;
+    }
+
+    function setSubscribe_date_date($subscribe_date_date) {
+        $this->subscribe_date_date = $subscribe_date_date;
+    }
+
+    function setStatus($status) {
+        $this->status = $status;
+    }
+
+    
     
     public function jsonSerialize() {
         return array(
@@ -145,6 +171,8 @@ class User implements JsonSerializable {
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'birth_date' => $this->birth_date,
+            'subscribe_date' => $this->subscribe_date,
+            'status' => $this->status,
             'address' => $this->address,
             'license' => $this->license,
             'phone' => $this->phone,

@@ -19,11 +19,11 @@ class UserResource extends AbstractResource {
     // ------------------------------------------------------------------------- GET USER BY ID
     // -------------------------------------------------------------------------
     public function getUserById(Request $request, Response $response, $args) {
-        $id = intval($args["id"]);
-        if ($id === 0) {
+        $user_id = intval($args["user_id"]);
+        if ($user_id === 0) {
             $data = null;
         } else {
-            $data = $this->getEntityManager()->find('App\Entity\User', $id);
+            $data = $this->getEntityManager()->find('App\Entity\User', $user_id);
         }
         if ($data === null) {
             return $response->withStatus(404, "User Not Found");
@@ -79,6 +79,24 @@ class UserResource extends AbstractResource {
             $response = $response->withStatus(400, "Invalid User");
         }       
         return $response;        
+    }
+    
+    // -------------------------------------------------------------------------
+    // ------------------------------------------------------------------------- DELETE USER
+    // -------------------------------------------------------------------------
+    public function deleteUser(Request $request, Response $response, $args) {
+        $user_id = intval($args["user_id"]);
+        if($user_id > 0){
+            $comment = $this->getEntityManager()->find(User::class, $user_id);
+            if($comment){
+                $this->getEntityManager()->remove($comment);
+                $this->getEntityManager()->flush();
+            }else{
+                return $response->withStatus(404, "User Not Found");
+            }
+        }else{
+            return $response->withStatus(400, "Invalid User Id");
+        }
     }
     
     // -------------------------------------------------------------------------

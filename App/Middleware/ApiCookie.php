@@ -8,9 +8,9 @@ use \App\Entity\User;
 use App\Ressources\UserResource;
 
 class ApiCookie {
-    
-    private $cookieTime = 365*24*3600;
-            
+
+    private $cookieTime = 365 * 24 * 3600;
+
     public function __invoke(Request $request, Response $response, $next) {
 //        //var_dump($_SESSION);
 //        if(isset($_SESSION["user"]) && $_SESSION["user"] != null){
@@ -29,8 +29,8 @@ class ApiCookie {
 //                }
 //            }
 //        }
-        $next($request, $response);
+        $response = $next($request, $response);
         //var_dump($_COOKIE);
-        return $response;
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }
