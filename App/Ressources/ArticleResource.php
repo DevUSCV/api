@@ -11,7 +11,7 @@ class ArticleResource extends AbstractResource {
 
     private $container;
 
-    public function __construct($container) {
+    public function __construct(\Slim\Container $container) {
         $this->container = $container;
     }
 
@@ -49,6 +49,7 @@ class ArticleResource extends AbstractResource {
             $article->setCreate_date(new \DateTime('now'));
             $this->getEntityManager()->persist($article);
             $this->getEntityManager()->flush($article);
+            $response->write(json_encode($article));
         }else{
             return $response->withStatus(400, "Invalid Article");
         }
@@ -59,7 +60,7 @@ class ArticleResource extends AbstractResource {
     // ------------------------------------------------------------------------- UPDATE ARTICLE
     // -------------------------------------------------------------------------
     public function updateArticle(Request $request, Response $response, $args) {
-        $article_id = intval($request->getParam("article_id"));
+        $article_id = intval($args["article_id"]);
         $title = $request->getParam("title");
         $content = $request->getParam("content");
         if($article_id > 0 && $title && $content && isset($_SESSION["user"]) && $_SESSION["user"] !== null){

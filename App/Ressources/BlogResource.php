@@ -12,7 +12,7 @@ class BlogResource extends AbstractResource {
 
     private $container;
 
-    public function __construct($container) {
+    public function __construct(\Slim\Container $container) {
         $this->container = $container;
     }
 

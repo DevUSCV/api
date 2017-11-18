@@ -13,7 +13,7 @@ class BlogPostCommentResource extends AbstractResource {
 
     private $container;
 
-    public function __construct($container) {
+    public function __construct(\Slim\Container $container) {
         $this->container = $container;
     }
 
@@ -55,6 +55,7 @@ class BlogPostCommentResource extends AbstractResource {
             $comment->setCreate_date(new \DateTime('now'));
             $this->getEntityManager()->persist($comment);
             $this->getEntityManager()->flush($comment);
+            $response->write(json_encode($comment));
         }else{
             return $response->withStatus(400, "Invalid Comment");
         }

@@ -11,7 +11,7 @@ class UserResource extends AbstractResource {
 
     private $container;
 
-    public function __construct($container) {
+    public function __construct(\Slim\Container $container) {
         $this->container = $container;
     }
     
@@ -64,16 +64,19 @@ class UserResource extends AbstractResource {
         $birth_date = $request->getParam("birth_date");
         $phone = $request->getParam("phone");
         $email = $request->getParam("email");
-        $password = $this->hashPassword($request->getParam("password"));
+        $password = $request->getParam("password");
         if($firstname && $lastname){
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
             $user->setBirth_date($birth_date);
             $user->setPhone($phone);
-            $user->setEmail($email);
-            $user->setPassword($password);
+            if($email && $password){
+                $user->setEmail($email);
+                $user->setPassword($this->hashPassword($password));
+            }            
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush($user);
+            $response->write(json_encode($user));
             // TODO SEND MAIL
         }else{
             $response = $response->withStatus(400, "Invalid User");

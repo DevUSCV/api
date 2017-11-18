@@ -12,7 +12,7 @@ class BlogPostResource extends AbstractResource {
 
     private $container;
 
-    public function __construct($container) {
+    public function __construct(\Slim\Container $container) {
         $this->container = $container;
     }
 
@@ -39,18 +39,19 @@ class BlogPostResource extends AbstractResource {
     // ------------------------------------------------------------------------- CREATE BLOG POST
     // -------------------------------------------------------------------------
     public function createBlogPost(Request $request, Response $response, $args) {
-        $blog_id = intval($args["id"]);
+        $blog_name = intval($args["blog_name"]);
         $title = $request->getParam("title");
         $content = $request->getParam("content");
         if($blog_id && $title && $content && isset($_SESSION["user"]) && $_SESSION["user"] !== null){
             $blog_post = new BlogPost();
-            $blog_post->setBlog($this->getEntityManager()->find(Blog::class, $blog_id));
+            $blog_post->setBlog($this->getEntityManager()->getRepository(Blog::class)->findOneBy(Array("name" => $blog_name)));
             $blog_post->setTitle($title);
             $blog_post->setContent($content);
             $blog_post->setAuthor_name($_SESSION['user']->getLastName() . " " . $_SESSION['user']->getFirstName());
             $blog_post->setCreate_date(new \DateTime('now'));
             $this->getEntityManager()->persist($blog_post);
             $this->getEntityManager()->flush($blog_post);
+            $response->write(json_encode($blog_post));
         }else{
             return $response->withStatus(400, "Invalid Blog Post");
         }
