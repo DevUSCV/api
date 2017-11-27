@@ -61,6 +61,7 @@ class BlogPost implements JsonSerializable {
     /**
      * One BlogPost has Many BlogPostComment.
      * @OneToMany(targetEntity="BlogPostComment", mappedBy="blog_post")
+     * @OrderBy({"create_date" = "DESC"})
      */
     private $comment;
             
@@ -140,6 +141,18 @@ class BlogPost implements JsonSerializable {
         $this->comment = $comment;
     }
 
+    public function getExcerpt() {
+	if(strlen($this->content) > 300) {
+		$excerpt   = substr($this->content, 0, 300-3);
+		$lastSpace = strrpos($excerpt, ' ');
+		$excerpt   = substr($excerpt, 0, $lastSpace);
+		$excerpt  .= '...';
+	} else {
+		$excerpt = $this->content;
+	}
+	
+	return $excerpt;
+}
             
     public function jsonSerialize() {
         return array(

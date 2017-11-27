@@ -7,6 +7,7 @@ class Config {
         'driver'   => 'pdo_mysql',
         'user'     => 'root',
         'password' => 'admin',
-        'dbname'   => 'api'
+        'dbname'   => 'api',
+        'charset' => 'utf8'
     );
 }

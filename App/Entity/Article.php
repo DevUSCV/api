@@ -19,14 +19,20 @@ class Article implements JsonSerializable {
      * @GeneratedValue(strategy="AUTO")
      */
     protected $article_id;
-    
-        /**
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    protected $name;
+
+    /**
      * @var string
      * @Column(type="string", length=255)
      */
     protected $title;
 
-        /**
+    /**
      * @var string
      * @Column(type="string", length=65535)
      */
@@ -49,13 +55,13 @@ class Article implements JsonSerializable {
 
     /** @Column(type="datetime", name="last_edit_date") */
     protected $last_edit_date;
-    
+
     /**
      * One Article has Many ArticleComments.
      * @OneToMany(targetEntity="ArticleComment", mappedBy="article")
      */
     private $comment;
-            
+
     public function __construct() {
         $this->comment = new ArrayCollection();
     }
@@ -116,10 +122,10 @@ class Article implements JsonSerializable {
         $this->last_edit_date = $last_edit_date;
     }
 
-        
     public function jsonSerialize() {
         return array(
             'article_id' => $this->article_id,
+            'name' => $this->name,
             'title' => $this->title,
             'content' => $this->content,
             'author_name' => $this->author_name,
@@ -129,5 +135,5 @@ class Article implements JsonSerializable {
             'comment' => $this->comment->toArray()
         );
     }
-    
+
 }

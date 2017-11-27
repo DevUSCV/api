@@ -22,11 +22,14 @@ $app->add(new App\Middleware\ApiCookie());
 // -----------------------------------------------------------------------------
 $container = $app->getContainer();
 
-// Define Routes
-$app->get("/", function(Request $request, Response $response, $args) {
-    $response->write("ok");
-    return $response;
-})->add(new App\Middleware\Security\Logged());
+// ----------------------------------------------------------------------------- SITE ROUTES
+// -----------------------------------------------------------------------------
+// GET
+$app->get("/", App\Ressources\SiteResource::class . ":getSite");
+
+// ----------------------------------------------------------------------------- SLIDE ROUTES
+// -----------------------------------------------------------------------------
+$app->get("/slide", App\Ressources\SlideResource::class . ":getSlide");
 
 // ----------------------------------------------------------------------------- USER ROUTES
 // -----------------------------------------------------------------------------
@@ -61,7 +64,7 @@ $app->get("/city/{search}", App\Ressources\CityResource::class . ":getCityAutoCo
 $app->post("/article", App\Ressources\ArticleResource::class . ":createArticle")
         ->add(new App\Middleware\Security\Logged());
 // GET
-$app->get("/article/{article_id}", App\Ressources\ArticleResource::class . ":getArticleById");
+$app->get("/article/{article}", App\Ressources\ArticleResource::class . ":getArticle");
 // PUT
 $app->put("/article/{article_id}", App\Ressources\ArticleResource::class . ":updateArticle")
         ->add(new App\Middleware\Security\Logged());
@@ -111,6 +114,16 @@ $app->post("/blog/{blog_name}/post/{blog_post_id}/comment", App\Ressources\BlogP
 $app->get("/blog/{blog_name}/post/{blog_post_id}/comment", App\Ressources\BlogPostCommentResource::class . ":getBlogPostCommentByPostId");
 // DELETE
 $app->delete("/blog/{blog_name}/post/{blog_post_id}/comment/{blog_post_comment_id}", App\Ressources\BlogPostCommentResource::class . ":deleteBlogPostComment");
+
+// ----------------------------------------------------------------------------- PRICE ROUTES
+// -----------------------------------------------------------------------------
+// POST
+
+// PUT 
+
+// GET
+$app->get("/price/{category}", App\Ressources\PriceResource::class . ":getPriceByCategory");
+// DELETE
 
 
 

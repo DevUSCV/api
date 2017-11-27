@@ -18,12 +18,12 @@ class ArticleResource extends AbstractResource {
     // -------------------------------------------------------------------------
     // ------------------------------------------------------------------------- GET ARTICLE BY ID
     // -------------------------------------------------------------------------
-    public function getArticleById(Request $request, Response $response, $args) {
-        $article_id = intval($args["article_id"]);
-        if ($article_id === 0) {
-            $data = null;
+    public function getArticle(Request $request, Response $response, $args) {
+        $article = intval($args["article"]);
+        if ($article === 0) {
+            $data = $this->getEntityManager()->getRepository('App\Entity\Article')->findOneBy(Array( "name" => $args["article"]));
         } else {
-            $data = $this->getEntityManager()->find('App\Entity\Article', $article_id);
+            $data = $this->getEntityManager()->find('App\Entity\Article', $article);
             //var_dump($data);
         }
         if ($data === null) {
