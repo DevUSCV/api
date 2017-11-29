@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2017 at 02:43 PM
+-- Generation Time: Nov 29, 2017 at 04:12 AM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `api`
 --
-CREATE DATABASE IF NOT EXISTS `api` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `api`;
 
 -- --------------------------------------------------------
 
@@ -39428,6 +39426,39 @@ CREATE TABLE `license` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `photo`
+--
+
+CREATE TABLE `photo` (
+  `photo_id` int(10) UNSIGNED NOT NULL,
+  `url_large` varchar(500) NOT NULL,
+  `url_small` varchar(500) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `photo`
+--
+
+INSERT INTO `photo` (`photo_id`, `url_large`, `url_small`, `title`, `description`) VALUES
+(2, '/uploads/photos/2c875d92adff9f8b_large.jpg', '/uploads/photos/2c875d92adff9f8b.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(3, '/uploads/photos/d1bcfcb70bd1f5d9_large.jpg', '/uploads/photos/d1bcfcb70bd1f5d9.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(4, '/uploads/photos/8ff99e349da0a0a2_large.jpg', '/uploads/photos/8ff99e349da0a0a2.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(5, '/uploads/photos/b7b0e4c5e0450596_large.jpg', '/uploads/photos/b7b0e4c5e0450596.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(6, '/uploads/photos/02bc127ed5097cde_large.jpg', '/uploads/photos/02bc127ed5097cde.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(7, '/uploads/photos/043031870384f717_large.jpg', '/uploads/photos/043031870384f717.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(8, '/uploads/photos/156d25d9a5287e3e_large.jpg', '/uploads/photos/156d25d9a5287e3e.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(9, '/uploads/photos/2197beded3279b60_large.jpg', '/uploads/photos/2197beded3279b60.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(10, '/uploads/photos/3139ab598c19ec8b_large.jpg', '/uploads/photos/3139ab598c19ec8b.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(11, '/uploads/photos/ac0ca6fccd885216_large.jpg', '/uploads/photos/ac0ca6fccd885216.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(12, '/uploads/photos/a4db3cd7601dbf24_large.jpg', '/uploads/photos/a4db3cd7601dbf24.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(13, '/uploads/photos/ba232a82cd0fd189_large.jpg', '/uploads/photos/ba232a82cd0fd189.jpg', 'Titre de mon Image', 'Descriptionde mon Image'),
+(14, '/uploads/photos/e1049947f7249131_large.jpg', '/uploads/photos/e1049947f7249131.jpg', 'Titre de mon Image', 'Descriptionde mon Image jhbvsdjfh sd fgjsqhdfg qshdjfg qsdfg qshjgf shq gfhjsqd fqsdfg qsdg qsg qdsf gqsdgqdsfg qsdg qdsg qdsfg dsqg sqgsq gqsdg dfg sdqg sf gzekjhFGKZUE FGDUKHJQGFuyzeait fyui');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `price`
 --
 
@@ -39599,6 +39630,12 @@ ALTER TABLE `license`
   ADD PRIMARY KEY (`license_id`);
 
 --
+-- Indexes for table `photo`
+--
+ALTER TABLE `photo`
+  ADD PRIMARY KEY (`photo_id`);
+
+--
 -- Indexes for table `price`
 --
 ALTER TABLE `price`
@@ -39669,6 +39706,11 @@ ALTER TABLE `city`
 --
 ALTER TABLE `license`
   MODIFY `license_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `photo_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `price`
 --

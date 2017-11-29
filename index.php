@@ -4,9 +4,6 @@ require './vendor/autoload.php';
 
 session_start();
 
-use Slim\Http\Request;
-use Slim\Http\Response;
-
 // ----------------------------------------------------------------------------- Create Application
 // -----------------------------------------------------------------------------
 $app = new Slim\App([
@@ -21,15 +18,19 @@ $app->add(new App\Middleware\ApiCookie());
 // ----------------------------------------------------------------------------- Define container's contents
 // -----------------------------------------------------------------------------
 $container = $app->getContainer();
+$container['upload_directory'] = "/uploads";
+
 
 // ----------------------------------------------------------------------------- SITE ROUTES
 // -----------------------------------------------------------------------------
 // GET
 $app->get("/", App\Ressources\SiteResource::class . ":getSite");
 
+
 // ----------------------------------------------------------------------------- SLIDE ROUTES
 // -----------------------------------------------------------------------------
 $app->get("/slide", App\Ressources\SlideResource::class . ":getSlide");
+
 
 // ----------------------------------------------------------------------------- USER ROUTES
 // -----------------------------------------------------------------------------
@@ -46,6 +47,7 @@ $app->delete("/user/{user_id}", App\Ressources\UserResource::class . ":deleteUse
 $app->post("/user/login", App\Ressources\UserResource::class . ":login");
 $app->post("/user/logout", App\Ressources\UserResource::class . ":logout");
 
+
 // ----------------------------------------------------------------------------- ADDRESS ROUTES
 // -----------------------------------------------------------------------------
 // PUT
@@ -53,10 +55,12 @@ $app->put("/user/address", App\Ressources\AddressResource::class . ":updateCurre
         ->add(new App\Middleware\Security\Logged());
 $app->put("/user/{user_id}/address", App\Ressources\AddressResource::class . ":updateUserAddress");
 
+
 // ----------------------------------------------------------------------------- CITY ROUTES
 // -----------------------------------------------------------------------------
 // GET
 $app->get("/city/{search}", App\Ressources\CityResource::class . ":getCityAutoComplete");
+
 
 // ----------------------------------------------------------------------------- ARTICLE ROUTES
 // -----------------------------------------------------------------------------
@@ -71,6 +75,7 @@ $app->put("/article/{article_id}", App\Ressources\ArticleResource::class . ":upd
 // DELETE
 $app->delete("/article/{article_id}", App\Ressources\ArticleCommentResource::class . ":deleteArticle");
 
+
 // ----------------------------------------------------------------------------- ARTICLE COMMENT ROUTES
 // -----------------------------------------------------------------------------
 // POST
@@ -80,6 +85,7 @@ $app->post("/article/{article_id}/comment", App\Ressources\ArticleCommentResourc
 $app->get("/article/{article_id}/comment", App\Ressources\ArticleCommentResource::class . ":getArticleCommentsByArticleId");
 // DELETE
 $app->delete("/article/{article_id}/comment/{article_comment_id}", App\Ressources\ArticleCommentResource::class . ":deleteArticleComment");
+
 
 // ----------------------------------------------------------------------------- BLOG ROUTES
 // -----------------------------------------------------------------------------
@@ -91,6 +97,7 @@ $app->get("/blog/{blog_name}", App\Ressources\BlogResource::class . ":getBlogByN
 $app->put("/blog", App\Ressources\BlogResource::class . ":updateBlog");
 // DELETE
 $app->delete("/blog/{blog_id}", App\Ressources\BlogResource::class . ":deleteBlog");
+
 
 // ----------------------------------------------------------------------------- BLOG POST ROUTES
 // -----------------------------------------------------------------------------
@@ -105,6 +112,7 @@ $app->put("/blog/{blog_name}/post", App\Ressources\BlogPostResource::class . ":u
 // DELETE
 $app->delete("/blog/{blog_name}/post/{blog_post_id}", App\Ressources\BlogPostResource::class . ":deleteBlogPost");
 
+
 // ----------------------------------------------------------------------------- BLOG POST COMMENT ROUTES
 // -----------------------------------------------------------------------------
 // POST
@@ -114,6 +122,7 @@ $app->post("/blog/{blog_name}/post/{blog_post_id}/comment", App\Ressources\BlogP
 $app->get("/blog/{blog_name}/post/{blog_post_id}/comment", App\Ressources\BlogPostCommentResource::class . ":getBlogPostCommentByPostId");
 // DELETE
 $app->delete("/blog/{blog_name}/post/{blog_post_id}/comment/{blog_post_comment_id}", App\Ressources\BlogPostCommentResource::class . ":deleteBlogPostComment");
+
 
 // ----------------------------------------------------------------------------- PRICE ROUTES
 // -----------------------------------------------------------------------------
@@ -125,6 +134,17 @@ $app->delete("/blog/{blog_name}/post/{blog_post_id}/comment/{blog_post_comment_i
 $app->get("/price/{category}", App\Ressources\PriceResource::class . ":getPriceByCategory");
 // DELETE
 
+
+// ----------------------------------------------------------------------------- PHOTO ROUTES
+// -----------------------------------------------------------------------------
+// POST
+$app->post("/photo", App\Ressources\PhotoResource::class . ":postPhoto");
+// PUT 
+$app->put("/photo", App\Ressources\PhotoResource::class . ":updatePhoto");
+// GET
+$app->get("/photo", App\Ressources\PhotoResource::class . ":getPhotos");
+// DELETE
+$app->delete("/photo/{photo_id}", App\Ressources\PhotoResource::class . ":deletePhoto");
 
 
 
