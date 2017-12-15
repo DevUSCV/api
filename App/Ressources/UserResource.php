@@ -79,6 +79,7 @@ class UserResource extends AbstractResource {
             $response->write(json_encode($user));
             // TODO SEND MAIL
         }else{
+            $response->write("");
             $response = $response->withStatus(400, "Invalid User");
         }       
         return $response;        
@@ -109,10 +110,12 @@ class UserResource extends AbstractResource {
         $email = $request->getParam("email");
         $password = $request->getParam("password");
         $user = $this->checkLogin($email, $password);
+                
         if ($user) {
+            $response->write(true);
             $_SESSION["user"] = $user;
         } else {
-            $response = $response->withStatus(401, "Wrong Login");
+            return $response->withStatus(401, "Wrong Login");
         }
         return $response;
     }
@@ -122,7 +125,7 @@ class UserResource extends AbstractResource {
     // -------------------------------------------------------------------------
     public function logout(Request $request, Response $response, $args) {
         session_destroy();
-        return $response;
+        return $response->write(true);
     }
 
     public function updatePassword(Request $request, Response $response, $args) {
@@ -164,7 +167,6 @@ class UserResource extends AbstractResource {
                 return false;
             } else {
                 $user = $data[0];
-                echo json_encode($user);
                 if ($this->checkPassword($password, $user->getPassword())) {
                     return $user;
                 } else {
@@ -174,7 +176,6 @@ class UserResource extends AbstractResource {
         } else {
             return false;
         }
-        return $response;
     }
 
 }

@@ -27,7 +27,9 @@ class ArticleResource extends AbstractResource {
             //var_dump($data);
         }
         if ($data === null) {
+            $response->write(json_encode(false));
             return $response->withStatus(404, "article Not Found");
+            
         } else {
             $response->write(json_encode($data));
         }
@@ -51,7 +53,9 @@ class ArticleResource extends AbstractResource {
             $this->getEntityManager()->flush($article);
             $response->write(json_encode($article));
         }else{
+            $response->write(json_encode(false));
             return $response->withStatus(400, "Invalid Article");
+            
         }
         return $response;
     }
@@ -71,12 +75,17 @@ class ArticleResource extends AbstractResource {
                 $article->setLast_editor_name($_SESSION['user']->getLastName() . " " . $_SESSION['user']->getFirstName());
                 $article->setLast_edit_date(new \DateTime('now'));
                 $this->getEntityManager()->flush($article);
+                $response->write(json_encode(true));
             }else{
+                $response->write(json_encode(false));
                 return $response->withStatus(404, "Article Not Found");
+                
             }
             
         }else{
+            $response->write(json_encode(false));
             return $response->withStatus(400, "Invalid Article");
+            
         }
         return $response;
     }
@@ -91,11 +100,16 @@ class ArticleResource extends AbstractResource {
             if($comment){
                 $this->getEntityManager()->remove($comment);
                 $this->getEntityManager()->flush();
+                $response->write(json_encode(true));
             }else{
+                $response->write(json_encode(false));
                 return $response->withStatus(404, "Article Not Found");
+                
             }
         }else{
+            $response->write(json_encode(false));
             return $response->withStatus(400, "Invalid Article Id");
+            
         }
     }
 }

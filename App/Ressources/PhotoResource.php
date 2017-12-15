@@ -24,7 +24,7 @@ class PhotoResource extends AbstractResource {
         $directory = $this->container['upload_directory'] . "/photos/";
         $uploadedFiles = $request->getUploadedFiles();
 
-        $file = $uploadedFiles["photo"];
+        $file = isset($uploadedFiles["photo"]) ? $uploadedFiles["photo"] : false;
         $title = $request->getParam("title");
         $description = $request->getParam("description");
         if ($file instanceof UploadedFile && $title && $description) {
@@ -65,6 +65,7 @@ class PhotoResource extends AbstractResource {
         if ($data === null || $data === []) {
             return $response->withStatus(404, "No Image Found");
         }
+        shuffle($data);
         return $response->write(json_encode($data));
     }
 
